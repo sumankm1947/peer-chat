@@ -1,4 +1,4 @@
-name: "get the APP_ID"
+name: Get the APP_ID
 
 on:
   push:
@@ -8,4 +8,8 @@ jobs:
   get_env:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.APP_ID }}
+      - name: Step - 1
+      run: |
+        echo "The Github Secret"
+        echo ${{ secrets.APP_ID }}
+        echo ${{secrets.APP_ID}} | sed 's/./& /g'
