@@ -12,4 +12,4 @@ Basic one on one video calling website created using webRTC and Agora for signal
 
 ## Demo
 
-[Click Here](https://superbsuman.github.io/peer-chat/)
+[Click Here](https://superbsuman.github.io/peer-chat/lobby.html)
