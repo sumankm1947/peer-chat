@@ -1,5 +1,4 @@
-console.log({secrets.APP_ID});
-const APP_ID = {{ secrets.APP_ID }};
+const APP_ID = "3cca86b04b4a4bbfa50bf178ffab7137";
 
 const TOKEN = null;
 
