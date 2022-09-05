@@ -14,4 +14,4 @@ jobs:
           echo ${{ secrets.APP_ID }}
       - name: Step - 2
         run: |
-          APP_ID = ${{ secrets.APP_ID }}
+          APP_ID: ${{ secrets.APP_ID }}
