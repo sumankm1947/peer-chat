@@ -1,4 +1,4 @@
-const APP_ID = {secret.APP_ID} | "";
+const APP_ID = "3cca86b04b4a4bbfa50bf178ffab7137";
 const TOKEN = null;
 
 // Local => this user video stream, remote => video stream of other user
