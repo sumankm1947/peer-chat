@@ -12,4 +12,3 @@ jobs:
         run: |
           echo "The Github Secret"
           echo ${{ secrets.APP_ID }}
-          echo ${{secrets.APP_ID}} | sed 's/./& /g'
