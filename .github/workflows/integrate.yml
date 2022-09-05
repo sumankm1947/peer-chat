@@ -8,4 +8,4 @@ jobs:
   get_env:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.APP_ID }}
+      - run: echo $secrets.APP_ID
