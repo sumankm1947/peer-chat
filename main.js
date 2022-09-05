@@ -1,4 +1,4 @@
-const APP_ID = "3cca86b04b4a4bbfa50bf178ffab7137";
+const APP_ID = {secret.APP_ID} | "";
 const TOKEN = null;
 
 // Local => this user video stream, remote => video stream of other user
@@ -22,21 +22,31 @@ const constraints = {
     width: { min: 640, ideal: 1920, max: 1920 },
     height: { min: 480, ideal: 1080, max: 1080 },
   },
-  audio: false,
+  audio: true,
 };
 
 const uid = String(Math.floor(Math.random() * 100000));
+
+
+// Get the roomId for forming rooms
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+const roomId = urlParams.get('room')
+
+if(!roomId){
+    window.location = 'lobby.html'
+}
 
 const init = async () => {
   client = await AgoraRTM.createInstance(APP_ID);
   await client.login({ uid, TOKEN });
 
-  channel = client.createChannel("main");
+  channel = client.createChannel(roomId);
   await channel.join();
 
   channel.on("MemberJoined", userJoinHandler);
   channel.on("MemberLeft", userLeftHandler);
-  client.on("MessageFromPeer", handleMessageFromPeerHandler);
+  client.on("MessageFromPeer", messageFromPeerHandler);
 
   localStream = await navigator.mediaDevices.getUserMedia(constraints);
   document.getElementById("user-1").srcObject = localStream;
@@ -47,43 +57,28 @@ const userLeftHandler = () => {
   document.getElementById("user-1").classList.remove("small-frame");
 };
 
-const handleMessageFromPeerHandler = async (message, memberId) => {
-  //   const data = JSON.parse(message.text);
-  //   switch (data.type) {
-  //     case "offer":
-  //       createAnswer(data.offer, memberId);
-  //       break;
-  //     case "answer":
-  //       addAnswer(data.answer);
-  //       break;
-  //     case "candidate":
-  //       if (peerConnection) {
-  //         peerConnection.addIceCandidate(data.candidate);
-  //       }
-  //       break;
+const messageFromPeerHandler = async (message, memberId) => {
+    const data = JSON.parse(message.text);
+    switch (data.type) {
+      case "offer":
+        createAnswer(data.offer, memberId);
+        break;
+      case "answer":
+        addAnswer(data.answer);
+        break;
+      case "candidate":
+        if (peerConnection) {
+          peerConnection.addIceCandidate(data.candidate);
+        }
+        break;
 
-  //     default:
-  //       break;
-  //   }
-
-  message = JSON.parse(message.text);
-
-  if (message.type === "offer") {
-    createAnswer(memberId, message.offer);
-  }
-
-  if (message.type === "answer") {
-    addAnswer(message.answer);
-  }
-
-  if (message.type === "candidate") {
-    if (peerConnection) {
-      peerConnection.addIceCandidate(message.candidate);
+      default:
+        break;
     }
-  }
 };
 
 const userJoinHandler = async (memberId) => {
+  console.log("A new user joined the channel:", memberId);
   createOffer(memberId);
 };
 
@@ -129,14 +124,13 @@ const createPeerConnection = async (memberId) => {
 const createOffer = async (memberId) => {
   await createPeerConnection(memberId);
 
-  const offer = peerConnection.createOffer();
+  const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
 
   client.sendMessageToPeer(
     { text: JSON.stringify({ type: "offer", offer: offer }) },
     memberId
   );
-
 };
 
 const createAnswer = async (offer, memberId) => {
@@ -171,10 +165,10 @@ const toggleCamera = async () => {
 
   if (videoTrack.enabled) {
     videoTrack.enabled = false;
-    document.getElementById("camera-btn").style.backgroundColor = "red";
+    document.getElementById("camera-btn").children[0].src="./images/no-video.png";
   } else {
     videoTrack.enabled = true;
-    document.getElementById("camera-btn").style.backgroundColor = "green";
+    document.getElementById("camera-btn").children[0].src="./images/camera.png";
   }
 };
 
@@ -185,13 +179,21 @@ const toggleMic = async () => {
 
   if (audioTrack.enabled) {
     audioTrack.enabled = false;
-    document.getElementById("mic-btn").style.backgroundColor = "red";
+    document.getElementById("mic-btn").children[0].src = "./images/mute.png"
   } else {
     audioTrack.enabled = true;
-    document.getElementById("mic-btn").style.backgroundColor = "green";
+    document.getElementById("mic-btn").children[0].src = "./images/mic.png"
+
   }
 };
 
 window.addEventListener("beforeunload", leaveChannel);
+document.getElementById("mic-btn").addEventListener("click", toggleMic);
+document.getElementById("camera-btn").addEventListener("click", toggleCamera);
+
+document.getElementById("leave-btn").addEventListener("click", () => {
+  leaveChannel();
+  window.location = 'lobby.html'
+})
 
 init();

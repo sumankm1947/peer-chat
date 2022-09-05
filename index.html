@@ -6,8 +6,7 @@
     <title>Peer Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="./styles.css" />
-    <script src="main.js" defer></script>
-    <script src="agora-rtm-sdk-1.5.1.js"></script>
+
   </head>
   <body>
     <div id="videos">
@@ -15,9 +14,17 @@
       <video id="user-2" class="video" autoplay playsinline></video>
     </div>
     <div id="buttons">
-        <button id="mic-btn" >mic</button>
-        <button id="camera-btn">camera</button>
-        <button id="leave-btn">leave</button>
+      <div id="mic-btn">
+        <img src="./images/mic.png" alt="mic">
+      </div>
+      <div id="camera-btn">
+        <img src="./images/camera.png" alt="camera">
+      </div>
+      <div id="leave-btn">
+        <img src="./images/end.png" alt="end-call">
+      </div>
     </div>
   </body>
+  <script src="agora-rtm-sdk-1.5.1.js"></script>
+  <script src="main.js"></script>
 </html>

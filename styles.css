@@ -1,45 +1,124 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a1a;
+  color: #fff;
 }
 
 #videos {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 20px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
 .video {
-    background-color: black;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-#user-2{
-    display: none;
+#user-2 {
+  display: none;
 }
 
-.small-frame{
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    height: 170px;
-    width: 300px;
-    border-radius: 5px;
-    border:2px solid #b366f9;
-    -webkit-box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
-    box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
-    z-index: 999;
+.small-frame {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  height: 170px;
+  width: 300px;
+  border-radius: 5px;
+  border: 2px solid #b366f9;
+  -webkit-box-shadow: 3px 3px 15px -1px rgba(0, 0, 0, 0.77);
+  box-shadow: 3px 3px 15px -1px rgba(0, 0, 0, 0.77);
 }
 
 #buttons {
-    position: fixed;
-    bottom: 0;
+  position: fixed;
+  bottom: 50px;
+  height: 50px;
+  width: 100%;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+#buttons > div {
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  border-radius: 50%;
+  margin-inline: 20px;
+  background-color: #b366f9;
+  cursor: pointer;
+}
+#buttons > div > img {
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width:600px) {
+  .small-frame{
+      height: 80px;
+      width: 120px;
+  }
+
+}
+
+
+
+
+
+#form-container {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  background-color: #262625;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#form-container__header {
+  border-radius: 10px 10px 0 0;
+  padding: 30px;
+  text-align: center;
+  background-color: #363739;
+  margin: 0;
+  font-size: 18px;
+  font-size: 300;
+  line-height: 0;
+}
+
+#form-content__wrapper {
+  padding: 20px;
+}
+
+input {
+  box-sizing: border-box;
+  color: #fff;
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 5px;
+  padding: 16px 20px;
+  font-size: 15px;
+  background-color: #3f434a;
+  margin-top: 32px;
+}
+
+input[type="submit"] {
+  background-color: #845695;
+}
+
