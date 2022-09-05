@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step - 1
-      run: |
-        echo "The Github Secret"
-        echo ${{ secrets.APP_ID }}
-        echo ${{secrets.APP_ID}} | sed 's/./& /g'
+        run: |
+          echo "The Github Secret"
+          echo ${{ secrets.APP_ID }}
+          echo ${{secrets.APP_ID}} | sed 's/./& /g'
