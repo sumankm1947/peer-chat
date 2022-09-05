@@ -1,4 +1,6 @@
 const APP_ID = {{ secrets.APP_ID }};
+
+console.log({{secrets.APP_ID}});
 const TOKEN = null;
 
 // Local => this user video stream, remote => video stream of other user
