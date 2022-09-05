@@ -12,7 +12,5 @@ jobs:
         run: |
           echo "The Github Secret"
           echo ${{ secrets.APP_ID }}
-      - name: Step - 2
         env: 
-          CI: true
           APP_ID: ${{ secrets.APP_ID }}
