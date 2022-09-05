@@ -8,4 +8,4 @@ jobs:
   get_env:
     runs-on: ubuntu-latest
     steps:
-      - run: env
+      - run: echo secrets.APP_ID
